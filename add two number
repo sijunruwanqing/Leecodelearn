@@ -28,7 +28,7 @@ public class Solution {
     }
 }
 
-python:
+python solution:
 
 class Solution:
 # @return a ListNode
@@ -48,5 +48,5 @@ def addTwoNumbers(self, l1, l2):
         n = n.next
     return root.next
 	
-	三位运算符，判断费控，列表的处理
+	三位运算符，判断费控，链表的处理
 
