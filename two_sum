@@ -32,4 +32,4 @@ class Solution(object):
                 buff_dict[target - nums[i]] = i
 				
 				
-				java hashmap来存储，使用了containskeys方法，时间复杂度O(n)
+				java hashmap来存储，使用了containskeys方法，java方法的时间复杂度为O(n)
