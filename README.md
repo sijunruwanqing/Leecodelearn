@@ -1,4 +1,7 @@
 # Leecodelearn
+
 Datastructure and algorithm  for leetcode 
-for two solutions or more (java an python)
+
+for two solutions or more (java and python)
+
 in wuhan
