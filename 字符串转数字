@@ -1,0 +1,73 @@
+
+
+判断出所有情况，循环写就成。遍历一次，o(n)
+
+java  solution:
+
+
+public int myAtoi(String str) {
+    int index = 0, sign = 1, total = 0;
+    //空字符串
+    if(str.length() == 0) return 0;
+
+    //空格移除
+    while(str.charAt(index) == ' ' && index < str.length())
+        index ++;
+
+    //处理字符串
+    if(str.charAt(index) == '+' || str.charAt(index) == '-'){
+        sign = str.charAt(index) == '+' ? 1 : -1;
+        index ++;
+    }
+    
+    //转化数字，避免溢出
+    while(index < str.length()){
+        int digit = str.charAt(index) - '0';
+        if(digit < 0 || digit > 9) break;
+
+        //十次判断
+        if(Integer.MAX_VALUE/10 < total || Integer.MAX_VALUE/10 == total && Integer.MAX_VALUE %10 < digit)
+            return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+
+        total = 10 * total + digit;
+        index ++;
+    }
+    return total * sign;
+}
+
+
+
+
+
+cpp solution:
+
+class Solution {
+public:
+    int myAtoi(string str) {
+        long long res = 0;
+        int k = 0;
+        while(k < str.size() && (str[k] == ' ' || str[k] == '\t')) k ++ ;
+        int minus = 1;
+        if (k >= str.size()) return 0;
+        if (str[k] == '-') minus = -1, k ++;
+        if (str[k] == '+')
+            if (minus == -1) return 0;
+            else k ++ ;
+        while(str[k] >= '0' && str[k] <= '9')
+        {
+            res = res * 10 + str[k] - '0';
+            k ++ ;
+            if (res > INT_MAX) break;
+        }
+        res *= minus;
+        if (res > INT_MAX) return INT_MAX;
+        if (res < INT_MIN) return INT_MIN;
+        return res;
+    }
+};
+
+
+
+
+
+
