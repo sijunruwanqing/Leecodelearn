@@ -1,0 +1,46 @@
+将目标整数看成这些单位值的加和，且同一种单位不能使用超过3次。
+所以我们尽可能优先使用值较大的单位即可。
+
+时间复杂度分析：计算量与最终罗马数字的长度成正比，对于每一位阿拉伯数字，罗马数字最多用4个字母表示（比如VIII=8），
+所以罗马数字的长度和阿拉伯数字的长度是一个数量级的，而阿拉伯数字的长度是 O(logn)，因此时间复杂度是 O(logn)。
+
+
+cpp:
+
+
+class Solution {
+public:
+    string intToRoman(int num) {
+        int values[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        string reps[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+        string res;
+        for (int i = 0; i < 13; i ++ )
+            while(num >= values[i])
+            {
+                num -= values[i];
+                res += reps[i];
+            }
+        return res;
+    }
+};
+
+
+java
+public class Solution {
+public String intToRoman(int num) {
+
+    int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+    String[] strs = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    
+    StringBuilder sb = new StringBuilder();
+    
+    for(int i=0;i<values.length;i++) {
+        while(num >= values[i]) {
+            num -= values[i];
+            sb.append(strs[i]);
+        }
+    }
+    return sb.toString();
+}
+}
