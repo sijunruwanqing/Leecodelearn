@@ -1,0 +1,44 @@
+
+
+
+
+
+java:class Solution {
+    public boolean isPalindrome(int x) {
+        if(x<0 || (x!= 0 && x%10 ==0))
+            return false;
+        int rev= 0;
+        while(x>rev){   //整除和取余
+            rev= rev*10 +x%10;
+            x=x/10;
+        }
+        return (x==rev || x==rev/10); //判断符号
+    }
+}
+
+
+
+
+
+
+思想：我们只需先算出后一半的逆序值，再判断是否和前一半相等即可。
+
+cpp solution:
+
+时间复杂度分析：int型整数在十进制表示下最多有10位，对于每一位的计算是常数级的，因此总时间复杂度是 O(1) 。
+
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0 || x && x % 10 == 0) return false;
+        int s = 0;
+        while (s <= x)
+        {
+            s = s * 10 + x % 10;
+            if (s == x || s == x / 10) return true; // 分别处理整数长度是奇数或者偶数的情况!
+            x /= 10;
+        }
+        return false;
+    }
+};
