@@ -32,6 +32,6 @@ class Solution(object):
             else:
                 buff_dict[target - nums[i]] = i
 		
-				
+				 
 				
 				java使用了hashmap存储，使用了containskeys方法，java方法的时间复杂度为O(n)
