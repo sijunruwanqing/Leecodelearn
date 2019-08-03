@@ -1,0 +1,79 @@
+时间复杂度分析：n表示s的长度，m 表示p的长度，总共 nm 个状态，状态转移复杂度 O(1)，所以总时间复杂度是 )O(nm) .
+
+状态表示：f[i][j]表示p从j开始到结尾，是否能匹配s从i开始到结尾
+状态转移：
+
+如果p[j+1]不是通配符'*'，则f[i][j]是真，当且仅当s[i]可以和p[j]匹配，且f[i+1][j+1]是真；
+如果p[j+1]是通配符'*'，则下面的情况只要有一种满足，f[i][j]就是真；
+f[i][j+2]是真；
+s[i]可以和p[j]匹配，且f[i+1][j]是真；
+第1种情况下的状态转移很好理解，那第2种情况下的状态转移怎么理解呢？
+
+枚举通配符'*'可以匹配多少个p[j]，只要有一种情况可以匹配，则f[i][j]就是真；
+这样做的话，我们发现，f[i][j]除了枚举0个p[j]之外，其余的枚举操作都包含在f[i+1][j]中了，所以我们只需判断
+f[i+1][j]是否为真，以及s[i]是否可以和p[j]匹配即可。
+
+class Solution {
+public:
+    vector<vector<int>>f;
+    int n, m;
+	
+	
+    bool isMatch(string s, string p) {
+        n = s.size();
+        m = p.size();
+        f = vector<vector<int>>(n + 1, vector<int>(m + 1, -1));
+        return dp(0, 0, s, p);
+    }
+
+    bool dp(int x, int y, string &s, string &p)
+    {
+        if (f[x][y] != -1) return f[x][y];
+        if (y == m)
+            return f[x][y] = x == n;
+        bool first_match = x < n && (s[x] == p[y] || p[y] == '.');
+        bool ans;
+        if (y + 1 < m && p[y + 1] == '*')
+        {
+            ans = dp(x, y + 2, s, p) || first_match && dp(x + 1, y, s, p);
+        }
+        else
+            ans = first_match && dp(x + 1, y + 1, s, p);
+        return f[x][y] = ans;
+    }
+};
+
+
+
+java:public boolean isMatch(String s, String p) {
+
+    if (s == null || p == null) {
+        return false;
+    }
+    boolean[][] dp = new boolean[s.length()+1][p.length()+1];
+    dp[0][0] = true;
+    for (int i = 0; i < p.length(); i++) {
+        if (p.charAt(i) == '*' && dp[0][i-1]) {
+            dp[0][i+1] = true;
+        }
+    }
+    for (int i = 0 ; i < s.length(); i++) {
+        for (int j = 0; j < p.length(); j++) {
+            if (p.charAt(j) == '.') {
+                dp[i+1][j+1] = dp[i][j];
+            }
+            if (p.charAt(j) == s.charAt(i)) {
+                dp[i+1][j+1] = dp[i][j];
+            }
+            if (p.charAt(j) == '*') {
+                if (p.charAt(j-1) != s.charAt(i) && p.charAt(j-1) != '.') {
+                    dp[i+1][j+1] = dp[i+1][j-1];
+                } else {
+                    dp[i+1][j+1] = (dp[i+1][j] || dp[i][j+1] || dp[i+1][j-1]);
+                }
+            }
+        }
+    }
+    return dp[s.length()][p.length()];
+}
+
