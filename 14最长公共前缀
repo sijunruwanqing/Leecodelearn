@@ -1,0 +1,20 @@
+想象一下，一个非常短的字符串位于数组的末尾。
+上述方法仍将如此小号小号比较。优化此情况的一种方法是进行垂直扫描。
+在转到下一列之前，我们在同一列（字符串的相同字符索引）上从上到下比较字符。
+
+
+public String longestCommonPrefix(String[] strs) {
+    if (strs == null || strs.length == 0) return "";
+	
+    for (int i = 0; i < strs[0].length() ; i++){
+        char c = strs[0].charAt(i);
+        for (int j = 1; j < strs.length; j ++) {
+            if (i == strs[j].length() || strs[j].charAt(i) != c)
+                return strs[0].substring(0, i);             
+        }
+    }
+    return strs[0];
+}
+
+
+}
