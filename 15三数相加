@@ -1,0 +1,61 @@
+
+
+python:
+
+
+def threeSum(self, nums):
+    res = []
+    nums.sort()
+    for i in xrange(len(nums)-2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        l, r = i+1, len(nums)-1
+        while l < r:
+            s = nums[i] + nums[l] + nums[r]
+            if s < 0:
+                l +=1 
+            elif s > 0:
+                r -= 1
+            else:
+                res.append((nums[i], nums[l], nums[r]))
+                while l < r and nums[l] == nums[l+1]:
+                    l += 1
+                while l < r and nums[r] == nums[r-1]:
+                    r -= 1
+                l += 1; r -= 1
+    return res
+	
+	
+	
+cpp：
+两重枚举，无重复构造。
+一重循环st无重复枚举第一个数字，然后接下来采用两头向里
+寻找的无重复的构造剩下的两个数字，具体在循环中实现。
+
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        for (int st = 0; st < nums.size(); st++) {
+            while (st != 0  && st < nums.size() && nums[st] == nums[st - 1])
+                st++;
+            int l = st + 1, r = nums.size() - 1;
+            while (l < r) {
+                if (nums[st] + nums[l] + nums[r] == 0) {
+                    res.push_back({nums[st], nums[l], nums[r]});
+                    do { l++; }while (l < r && nums[l - 1] == nums[l]);
+                    do { r--; }while (l < r && nums[r] == nums[r + 1]);
+                }
+                else if (nums[st] + nums[l] + nums[r] < 0) {
+                    do { l++; }while (l < r && nums[l - 1] == nums[l]);
+                }
+                else {
+                    do { r--; }while (l < r && nums[r] == nums[r + 1]);
+                }
+            }
+        }
+        return res;
+    }
+};
