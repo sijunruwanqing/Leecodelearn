@@ -1,0 +1,70 @@
+cpp solution；
+定义映射，将单一字母映射到数字
+从前往后扫描，如果发现s[i+1]大于s[i],那么累计s[i+1]-s[i]差值即可，并将i多向后移动一位；否则直接累计s[i]的值。
+
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        int n = s.length(), ans = 0;
+        unordered_map<char, int> words;
+        words['I'] = 1;
+		words['V'] = 5;
+        words['X'] = 10;
+		words['L'] = 50; 
+        words['C'] = 100;
+		words['D'] = 500;
+        words['M'] = 1000;
+		
+        for (int i = 0; i < n; i++) {
+            if (i != n - 1 && words[s[i + 1]] > words[s[i]]) {
+                ans += words[s[i + 1]] - words[s[i]];
+                i++;
+            }
+            else
+                ans += words[s[i]];
+        }
+        return ans;
+    }
+};
+
+
+java solution；
+class Solution {
+    public int romanToInt(String s) {
+         int nums[]=new int[s.length()];
+    for(int i=0;i<s.length();i++){
+        switch (s.charAt(i)){
+            case 'M':
+                nums[i]=1000;
+                break;
+            case 'D':
+                nums[i]=500;
+                break;
+            case 'C':
+                nums[i]=100;
+                break;
+            case 'L':
+                nums[i]=50;
+                break;
+            case 'X' :
+                nums[i]=10;
+                break;
+            case 'V':
+                nums[i]=5;
+                break;
+            case 'I':
+                nums[i]=1;
+                break;
+        }
+    }
+    int sum=0;
+    for(int i=0;i<nums.length-1;i++){
+        if(nums[i]<nums[i+1])
+            sum-=nums[i];
+        else
+            sum+=nums[i];
+    }
+    return sum+nums[nums.length-1];
+    }
+}
