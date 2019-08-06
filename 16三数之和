@@ -1,0 +1,46 @@
+
+
+cpp  solution  暴力枚举
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int ans = nums[0] + nums[1] + nums[2];
+        for (int i = 0; i < nums.size(); i++)
+            for (int j = i + 1; j < nums.size(); j++)
+                for (int k = j + 1; k < nums.size(); k++)
+                    if (abs(nums[i] + nums[j] + nums[k] - target) < abs(ans - target))
+                        ans = nums[i] + nums[j] + nums[k];
+
+        return ans;
+    }
+};
+
+java solution:
+
+类似于3求和问题,使用3个指针指向当前元素,
+下一个元素和最后一个元素。如果之和小于目标,
+这意味着我们必须添加更大的下一个元素移动到下一个元素。
+如果金额大,这意味着我们必须添加一个较小的元素移动到最后一个元素第二最后一个元素。
+继续这样做,直到最后。每次总和和目标之间的差异进行比较,如果小于最小差异到目前为止,然后结果替换它,否则继续迭代。
+
+public class Solution {
+    public int threeSumClosest(int[] num, int target) {
+        int result = num[0] + num[1] + num[num.length - 1];
+        Arrays.sort(num);
+        for (int i = 0; i < num.length - 2; i++) {
+            int start = i + 1, end = num.length - 1;
+            while (start < end) {
+                int sum = num[i] + num[start] + num[end];
+                if (sum > target) {
+                    end--;
+                } else {
+                    start++;
+                }
+                if (Math.abs(sum - target) < Math.abs(result - target)) {
+                    result = sum;
+                }
+            }
+        }
+        return result;
+    }
+}
