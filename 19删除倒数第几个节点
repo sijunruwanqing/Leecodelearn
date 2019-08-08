@@ -31,19 +31,19 @@ public ListNode removeNthFromEnd(ListNode head, int n) {
     ListNode slow = start, fast = start;
     slow.next = head;
     
-    //Move fast in front so that the gap between slow and fast becomes n
+    //快速移动使差距变小
     for(int i=1; i<=n+1; i++)
 	{
         fast = fast.next;
     }
 	
-    //Move fast to the end, maintaining the gap
+    //移动到末尾，保持间距。
     while(fast != null) {
         slow = slow.next;
         fast = fast.next;
     }
 	
-    //Skip the desired node
+    //跳过一些节点
     slow.next = slow.next.next;
     return start.next;
 }
