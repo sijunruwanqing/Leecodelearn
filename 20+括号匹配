@@ -4,7 +4,7 @@ java solution：
 
 
 
-栈tocahrArray(),push ,pop判断 
+栈的tocahrArray(),push ,pop判断 
 public boolean isValid(String s) {
 	Stack<Character> stack = new Stack<Character>();
 	for (char c : s.toCharArray()) {
