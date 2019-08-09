@@ -1,5 +1,5 @@
 cpp solution:
-采用深度优先搜索。数字特征为卡特兰数
+采用深度优先搜索dfs。数字特征为卡特兰数
 class Solution {
 public:
     vector<string> res;
