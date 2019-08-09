@@ -1,0 +1,46 @@
+cpp solution:
+采用深度优先搜索。数字特征为卡特兰数
+class Solution {
+public:
+    vector<string> res;
+    void dfs(int l, int r, int n, string cur) {
+        if (l == n && r == n) {
+            res.push_back(cur);
+            return;
+        }
+        if (l < n)
+            dfs(l + 1, r, n, cur + "(");
+
+        if (r < l)
+            dfs(l, r + 1, n, cur + ")");
+    }
+    vector<string> generateParenthesis(int n) {
+        if (n == 0)
+            return res;
+        dfs(0, 0, n, "");
+        return res;
+    }
+};
+
+
+java code :
+public List<String> generateParenthesis(int n) {
+    List<String> list = new ArrayList<String>();
+    generateOneByOne("", list, n, n);
+    return list;
+}
+public void generateOneByOne(String sublist, List<String> list, int left, int right){
+    if(left > right){
+        return;
+    }
+    if(left > 0){
+        generateOneByOne( sublist + "(" , list, left-1, right);
+    }
+    if(right > 0){
+        generateOneByOne( sublist + ")" , list, left, right-1);
+    }
+    if(left == 0 && right == 0){
+        list.add(sublist);
+        return;
+    }
+}
