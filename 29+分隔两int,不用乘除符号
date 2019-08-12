@@ -1,0 +1,43 @@
+cpp
+(倍增作减法) O((logx)2)
+根据x和y的符号判断最终答案的符号。
+将x和y都变为非负数。
+假设每次x可以减掉最大的数为tmp=2^c*y，则可以根据二进制很容易的证明最多只需要O(logx)次这样的减法。
+所以每次可以倍增的增加tmp，贡献2^c的答案。
+时间复杂度
+倍增找tmp需要O(logx)的时间，共需要O(logx)次这样的减法，故总时间复杂度为O((logx)2)
+
+
+
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        long long x = dividend, y = divisor;
+        if (y == 0)
+            return INT_MAX;
+        bool flag;
+        if (x > 0 && y > 0 || x < 0 && y < 0)
+            flag = true;
+        else
+            flag = false;
+
+        x = abs(x); y = abs(y);
+
+        long long ans = 0;
+        while (x >= y) {
+            long long tmp = y, c = 1;
+            while (x >= tmp + tmp) {
+                tmp += tmp;
+                c += c;
+            }
+            ans += c;
+            x -= tmp;
+        }
+
+        if (flag == false)
+            ans = -ans;
+        if (ans < INT_MIN || ans > INT_MAX)
+            return INT_MAX;
+        return int(ans);
+    }
+};
