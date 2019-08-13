@@ -1,0 +1,43 @@
+cpp:
+
+(两次二分查找) O(logn)
+第一次二分查找第一个位置使得它的值大于等于 target，若该位置的值不等于target，则返回 [-1, -1]。
+第二次二分查找第一个位置使得它的值大于 target。注意需要特判边界。
+时间复杂度
+两次二分时间复杂度为 O(logn)O(logn)。
+class Solution {
+public:
+    vector<int> searchRange(
+            vector<int>& nums, int target) {
+        int n = nums.size();
+        if (n == 0)
+            return vector<int>({-1, -1});
+        int l = 0, r = n - 1;
+        int start, end;
+        while (l < r) {
+            int mid = (l + r) >> 1;
+            if (nums[mid] < target)
+                l = mid + 1;
+            else
+                r = mid;
+        }
+        if (nums[l] != target)
+            return vector<int>({-1, -1});
+
+        start = l;
+
+        l = 0; r = n - 1;
+        while (l < r) {
+            int mid = (l + r) >> 1;
+            if (nums[mid] <= target)
+                l = mid + 1;
+            else
+                r = mid;
+        }
+        if (nums[l] > target)
+            end = l - 1;
+        else
+            end = l;
+        return vector<int>({start, end});
+    }
+};

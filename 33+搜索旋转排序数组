@@ -1,0 +1,68 @@
+cpp:二分查找后根据target后再二分查找；
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        if (nums.empty())
+            return -1;
+        int l = 0, r = nums.size() - 1;
+        
+        
+        if (nums[0] > nums.back()) { //如果是翻转的，找到最最小值得位置。
+            while (l < r) {
+                int mid = l + r >> 1;
+                if (nums[mid] < nums[r])
+                    r = mid;
+                else
+                    l = mid + 1;
+            }
+            if (target >= nums[0]) 
+                r = l,  l = 0;//确定目标值在，前一半区间。
+            else 
+                l = l, r = nums.size() - 1;//后一半区间
+        }
+        
+        
+        while (l < r) {
+            int mid = l + r >> 1;
+            if (nums[mid] >= target)
+                r = mid;
+            else 
+                l = mid + 1;
+        }
+        if (nums[l] == target)
+            return l;
+        return -1;
+    }
+};
+
+
+
+
+java：
+public class Solution {
+    public int search(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length - 1;
+        while (start <= end){
+            int mid = (start + end) / 2;
+            if (nums[mid] == target)
+                return mid;
+        
+            if (nums[start] <= nums[mid]){
+                 if (target < nums[mid] && target >= nums[start]) 
+                    end = mid - 1;
+                 else
+                    start = mid + 1;
+            } 
+        
+            if (nums[mid] <= nums[end]){
+                if (target > nums[mid] && target <= nums[end])
+                    start = mid + 1;
+                 else
+                    end = mid - 1;
+            }
+        }
+        return -1;
+    }
+}

@@ -1,0 +1,26 @@
+cpp:
+二分) O(logn)
+直接二分查找小于等于目标值的第一个位置。
+如果nums[l] >= target，说明找到了target或者数组中所有元素都比target小，则返回l
+否则说明数组所有元素都比target大，此时l一定是0，故返回l。
+
+
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int n = nums.size();
+        if (n == 0)
+            return 0;
+        int l = 0, r = n - 1;
+        while (l < r) {
+            int mid = (l + r) >> 1;
+            if (nums[mid] < target)
+                l = mid + 1;
+            else
+                r = mid;
+        }
+        if (nums[l] >= target)
+            return l;
+        return l + 1;
+    }
+};
