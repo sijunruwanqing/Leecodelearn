@@ -1,0 +1,49 @@
+cpp  模拟法:
+class Solution {
+public:
+    string countAndSay(int n) {
+        string last = "1";
+        for (int i = 2; i <= n; i++) {
+            string gen = "";
+            int count = 0;
+            for (int j = 0; j < last.length(); j++) {
+                count++;
+                if (j == last.length() - 1 || last[j] != last[j + 1]) {
+                    gen += to_string(count) + last[j];
+                    count = 0;
+                }
+            }
+            last = gen;
+        }
+        return last;
+    }
+};
+
+
+java
+class Solution {
+    public String countAndSay(int n) {
+	    	StringBuilder curr=new StringBuilder("1");
+	    	StringBuilder prev;
+	    	int count;
+	    	char say;
+	        for (int i=1;i<n;i++){
+	        	prev=curr;
+	 	        curr=new StringBuilder();       
+	 	        count=1;
+	 	        say=prev.charAt(0);
+	 	        
+	 	        for (int j=1,len=prev.length();j<len;j++){
+	 	        	if (prev.charAt(j)!=say){
+	 	        		curr.append(count).append(say);
+	 	        		count=1;
+	 	        		say=prev.charAt(j);
+	 	        	}
+	 	        	else count++;
+	 	        }
+	 	        curr.append(count).append(say);
+	        }	       	        
+	        return curr.toString();
+        
+    }
+}
