@@ -31,7 +31,8 @@ public class Solution {
             if (board[k][j]!='.') flag[board[k][j]-'0']=false;
             int r=i/3*3+k/3;
             int c=j/3*3+k%3;
-            if (board[r][c]!='.') flag[board[r][c]-'0']=false;
+            if (board[r][c]!='.') 
+	    flag[board[r][c]-'0']=false;
         }
     }
 }
