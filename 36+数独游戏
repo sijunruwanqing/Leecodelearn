@@ -1,5 +1,5 @@
 
-java   solution
+java   solution：
 hashset不重复元素，行列乘积存储
 class Solution {
   public boolean isValidSudoku(char[][] board) {
