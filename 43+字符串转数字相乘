@@ -27,8 +27,7 @@ public:
     }
 };
 
-
-java 图的理论和解释:
+java 采用图：理论和解释:
 
 	public String multiply(String num1, String num2) {
     int m = num1.length();
